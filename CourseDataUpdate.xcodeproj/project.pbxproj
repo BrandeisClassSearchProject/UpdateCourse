@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		105F3F61E4F81920B7FC7BD2 /* Pods_CourseDataUpdateUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDF5B97AF44D2AB89B4CA331 /* Pods_CourseDataUpdateUITests.framework */; };
 		1C91B52C1E8066C200F8C4BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C91B52B1E8066C200F8C4BA /* AppDelegate.swift */; };
 		1C91B52E1E8066C200F8C4BA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C91B52D1E8066C200F8C4BA /* ViewController.swift */; };
 		1C91B5311E8066C200F8C4BA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C91B52F1E8066C200F8C4BA /* Main.storyboard */; };
@@ -15,6 +16,11 @@
 		1C91B5391E8066C200F8C4BA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C91B5371E8066C200F8C4BA /* LaunchScreen.storyboard */; };
 		1C91B5441E8066C200F8C4BA /* CourseDataUpdateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C91B5431E8066C200F8C4BA /* CourseDataUpdateTests.swift */; };
 		1C91B54F1E8066C200F8C4BA /* CourseDataUpdateUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C91B54E1E8066C200F8C4BA /* CourseDataUpdateUITests.swift */; };
+		1C91B55D1E80686600F8C4BA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1C91B55C1E80686600F8C4BA /* GoogleService-Info.plist */; };
+		1C91B55F1E8069B600F8C4BA /* FirebaseUpdateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C91B55E1E8069B600F8C4BA /* FirebaseUpdateService.swift */; };
+		1C91B5611E806C0C00F8C4BA /* LoadingCourseInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C91B5601E806C0C00F8C4BA /* LoadingCourseInfo.swift */; };
+		2D83DF98A644A7DA55E21362 /* Pods_CourseDataUpdate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 676F00491BAA66EFEDDD4CD0 /* Pods_CourseDataUpdate.framework */; };
+		37F0A9D510E265C47FE5DA2E /* Pods_CourseDataUpdateTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A29C6252E5C3B6DA1D1955CF /* Pods_CourseDataUpdateTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		125B0EDCD6A05555C08439F9 /* Pods-CourseDataUpdate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CourseDataUpdate.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CourseDataUpdate/Pods-CourseDataUpdate.debug.xcconfig"; sourceTree = "<group>"; };
 		1C91B5281E8066C200F8C4BA /* CourseDataUpdate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CourseDataUpdate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C91B52B1E8066C200F8C4BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1C91B52D1E8066C200F8C4BA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -49,6 +56,17 @@
 		1C91B54A1E8066C200F8C4BA /* CourseDataUpdateUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CourseDataUpdateUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C91B54E1E8066C200F8C4BA /* CourseDataUpdateUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseDataUpdateUITests.swift; sourceTree = "<group>"; };
 		1C91B5501E8066C200F8C4BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1C91B55C1E80686600F8C4BA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1C91B55E1E8069B600F8C4BA /* FirebaseUpdateService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseUpdateService.swift; sourceTree = "<group>"; };
+		1C91B5601E806C0C00F8C4BA /* LoadingCourseInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingCourseInfo.swift; sourceTree = "<group>"; };
+		676F00491BAA66EFEDDD4CD0 /* Pods_CourseDataUpdate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CourseDataUpdate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		75E81C2B0292C63055EDB133 /* Pods-CourseDataUpdateUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CourseDataUpdateUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CourseDataUpdateUITests/Pods-CourseDataUpdateUITests.release.xcconfig"; sourceTree = "<group>"; };
+		89804334DE45EE77E2950366 /* Pods-CourseDataUpdate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CourseDataUpdate.release.xcconfig"; path = "Pods/Target Support Files/Pods-CourseDataUpdate/Pods-CourseDataUpdate.release.xcconfig"; sourceTree = "<group>"; };
+		9361464AD22A81082703A100 /* Pods-CourseDataUpdateTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CourseDataUpdateTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CourseDataUpdateTests/Pods-CourseDataUpdateTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A29C6252E5C3B6DA1D1955CF /* Pods_CourseDataUpdateTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CourseDataUpdateTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF804509D06C9C0B50138FCD /* Pods-CourseDataUpdateUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CourseDataUpdateUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CourseDataUpdateUITests/Pods-CourseDataUpdateUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		EC965503FFD79D475B820C21 /* Pods-CourseDataUpdateTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CourseDataUpdateTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CourseDataUpdateTests/Pods-CourseDataUpdateTests.release.xcconfig"; sourceTree = "<group>"; };
+		FDF5B97AF44D2AB89B4CA331 /* Pods_CourseDataUpdateUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CourseDataUpdateUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D83DF98A644A7DA55E21362 /* Pods_CourseDataUpdate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37F0A9D510E265C47FE5DA2E /* Pods_CourseDataUpdateTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				105F3F61E4F81920B7FC7BD2 /* Pods_CourseDataUpdateUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +104,8 @@
 				1C91B5421E8066C200F8C4BA /* CourseDataUpdateTests */,
 				1C91B54D1E8066C200F8C4BA /* CourseDataUpdateUITests */,
 				1C91B5291E8066C200F8C4BA /* Products */,
+				642841667E8DEA36E5DE9723 /* Pods */,
+				71A27F8B6C5F8D12BE5660CF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -105,7 +128,10 @@
 				1C91B5351E8066C200F8C4BA /* Assets.xcassets */,
 				1C91B5371E8066C200F8C4BA /* LaunchScreen.storyboard */,
 				1C91B53A1E8066C200F8C4BA /* Info.plist */,
+				1C91B55C1E80686600F8C4BA /* GoogleService-Info.plist */,
 				1C91B5321E8066C200F8C4BA /* CourseDataUpdate.xcdatamodeld */,
+				1C91B55E1E8069B600F8C4BA /* FirebaseUpdateService.swift */,
+				1C91B5601E806C0C00F8C4BA /* LoadingCourseInfo.swift */,
 			);
 			path = CourseDataUpdate;
 			sourceTree = "<group>";
@@ -128,6 +154,29 @@
 			path = CourseDataUpdateUITests;
 			sourceTree = "<group>";
 		};
+		642841667E8DEA36E5DE9723 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				125B0EDCD6A05555C08439F9 /* Pods-CourseDataUpdate.debug.xcconfig */,
+				89804334DE45EE77E2950366 /* Pods-CourseDataUpdate.release.xcconfig */,
+				9361464AD22A81082703A100 /* Pods-CourseDataUpdateTests.debug.xcconfig */,
+				EC965503FFD79D475B820C21 /* Pods-CourseDataUpdateTests.release.xcconfig */,
+				AF804509D06C9C0B50138FCD /* Pods-CourseDataUpdateUITests.debug.xcconfig */,
+				75E81C2B0292C63055EDB133 /* Pods-CourseDataUpdateUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		71A27F8B6C5F8D12BE5660CF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				676F00491BAA66EFEDDD4CD0 /* Pods_CourseDataUpdate.framework */,
+				A29C6252E5C3B6DA1D1955CF /* Pods_CourseDataUpdateTests.framework */,
+				FDF5B97AF44D2AB89B4CA331 /* Pods_CourseDataUpdateUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -135,9 +184,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1C91B5531E8066C200F8C4BA /* Build configuration list for PBXNativeTarget "CourseDataUpdate" */;
 			buildPhases = (
+				81FBF0D4BAF12B642917F4C5 /* [CP] Check Pods Manifest.lock */,
 				1C91B5241E8066C200F8C4BA /* Sources */,
 				1C91B5251E8066C200F8C4BA /* Frameworks */,
 				1C91B5261E8066C200F8C4BA /* Resources */,
+				B2E3DD735E54061A790809E1 /* [CP] Embed Pods Frameworks */,
+				364B1AFD53E8C9C0FBC9E9AF /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -152,9 +204,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1C91B5561E8066C200F8C4BA /* Build configuration list for PBXNativeTarget "CourseDataUpdateTests" */;
 			buildPhases = (
+				9D1505D47B9ED3D36FA7F6E4 /* [CP] Check Pods Manifest.lock */,
 				1C91B53B1E8066C200F8C4BA /* Sources */,
 				1C91B53C1E8066C200F8C4BA /* Frameworks */,
 				1C91B53D1E8066C200F8C4BA /* Resources */,
+				A5EB7226718660A40572C314 /* [CP] Embed Pods Frameworks */,
+				81A359E7AE53CEBD61DDBD96 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -170,9 +225,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1C91B5591E8066C200F8C4BA /* Build configuration list for PBXNativeTarget "CourseDataUpdateUITests" */;
 			buildPhases = (
+				20AF435D2BE6DAF6AFB1407B /* [CP] Check Pods Manifest.lock */,
 				1C91B5461E8066C200F8C4BA /* Sources */,
 				1C91B5471E8066C200F8C4BA /* Frameworks */,
 				1C91B5481E8066C200F8C4BA /* Resources */,
+				01C6B3BDDBE55FBFEB07E951 /* [CP] Embed Pods Frameworks */,
+				9881189203C94D4C470A3B24 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -196,6 +254,7 @@
 				TargetAttributes = {
 					1C91B5271E8066C200F8C4BA = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = HCTJ7F8C95;
 						ProvisioningStyle = Automatic;
 					};
 					1C91B53E1E8066C200F8C4BA = {
@@ -236,6 +295,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C91B5391E8066C200F8C4BA /* LaunchScreen.storyboard in Resources */,
+				1C91B55D1E80686600F8C4BA /* GoogleService-Info.plist in Resources */,
 				1C91B5361E8066C200F8C4BA /* Assets.xcassets in Resources */,
 				1C91B5311E8066C200F8C4BA /* Main.storyboard in Resources */,
 			);
@@ -257,12 +317,152 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		01C6B3BDDBE55FBFEB07E951 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CourseDataUpdateUITests/Pods-CourseDataUpdateUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		20AF435D2BE6DAF6AFB1407B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		364B1AFD53E8C9C0FBC9E9AF /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CourseDataUpdate/Pods-CourseDataUpdate-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		81A359E7AE53CEBD61DDBD96 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CourseDataUpdateTests/Pods-CourseDataUpdateTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		81FBF0D4BAF12B642917F4C5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		9881189203C94D4C470A3B24 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CourseDataUpdateUITests/Pods-CourseDataUpdateUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9D1505D47B9ED3D36FA7F6E4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		A5EB7226718660A40572C314 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CourseDataUpdateTests/Pods-CourseDataUpdateTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B2E3DD735E54061A790809E1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CourseDataUpdate/Pods-CourseDataUpdate-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		1C91B5241E8066C200F8C4BA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				1C91B52E1E8066C200F8C4BA /* ViewController.swift in Sources */,
+				1C91B55F1E8069B600F8C4BA /* FirebaseUpdateService.swift in Sources */,
+				1C91B5611E806C0C00F8C4BA /* LoadingCourseInfo.swift in Sources */,
 				1C91B52C1E8066C200F8C4BA /* AppDelegate.swift in Sources */,
 				1C91B5341E8066C200F8C4BA /* CourseDataUpdate.xcdatamodeld in Sources */,
 			);
@@ -412,8 +612,10 @@
 		};
 		1C91B5541E8066C200F8C4BA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 125B0EDCD6A05555C08439F9 /* Pods-CourseDataUpdate.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = HCTJ7F8C95;
 				INFOPLIST_FILE = CourseDataUpdate/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.rozoalex.CourseDataUpdate;
@@ -424,8 +626,10 @@
 		};
 		1C91B5551E8066C200F8C4BA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89804334DE45EE77E2950366 /* Pods-CourseDataUpdate.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = HCTJ7F8C95;
 				INFOPLIST_FILE = CourseDataUpdate/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.rozoalex.CourseDataUpdate;
@@ -436,6 +640,7 @@
 		};
 		1C91B5571E8066C200F8C4BA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9361464AD22A81082703A100 /* Pods-CourseDataUpdateTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -450,6 +655,7 @@
 		};
 		1C91B5581E8066C200F8C4BA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EC965503FFD79D475B820C21 /* Pods-CourseDataUpdateTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -464,6 +670,7 @@
 		};
 		1C91B55A1E8066C200F8C4BA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AF804509D06C9C0B50138FCD /* Pods-CourseDataUpdateUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = CourseDataUpdateUITests/Info.plist;
@@ -477,6 +684,7 @@
 		};
 		1C91B55B1E8066C200F8C4BA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 75E81C2B0292C63055EDB133 /* Pods-CourseDataUpdateUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				INFOPLIST_FILE = CourseDataUpdateUITests/Info.plist;
@@ -507,6 +715,7 @@
 				1C91B5551E8066C200F8C4BA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1C91B5561E8066C200F8C4BA /* Build configuration list for PBXNativeTarget "CourseDataUpdateTests" */ = {
 			isa = XCConfigurationList;
@@ -515,6 +724,7 @@
 				1C91B5581E8066C200F8C4BA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1C91B5591E8066C200F8C4BA /* Build configuration list for PBXNativeTarget "CourseDataUpdateUITests" */ = {
 			isa = XCConfigurationList;
@@ -523,6 +733,7 @@
 				1C91B55B1E8066C200F8C4BA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
