@@ -23,10 +23,12 @@ PODS:
   - GoogleToolboxForMac/Defines (2.1.0)
   - GoogleToolboxForMac/NSData+zlib (2.1.0):
     - GoogleToolboxForMac/Defines (= 2.1.0)
+  - NVActivityIndicatorView (3.1)
 
 DEPENDENCIES:
   - Firebase/Core
   - Firebase/Database
+  - NVActivityIndicatorView
 
 SPEC CHECKSUMS:
   Firebase: b8134e285eb33201115bc688bc5d7f112923bc1f
@@ -37,7 +39,8 @@ SPEC CHECKSUMS:
   GoogleInterchangeUtilities: d5bc4d88d5b661ab72f9d70c58d02ca8c27ad1f7
   GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
   GoogleToolboxForMac: 2b2596cbb7186865e98cadf2b1e262d851c2b168
+  NVActivityIndicatorView: 9f47e8a4affb860ef729aeec99b1550219e6c233
 
-PODFILE CHECKSUM: afeb66323b442de35371818ebb1a30b9be197b7b
+PODFILE CHECKSUM: 05683f6e3c313066f313c99f8cb5da46490d8d94
 
 COCOAPODS: 1.1.1

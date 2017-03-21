@@ -7,24 +7,47 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
+import Firebase
+
+
 
 class ViewController: UIViewController {
+    
+    let loader : LoadingCourseInfo = LoadingCourseInfo()
+    
+    @IBOutlet var updateBut: UIButton!
+    @IBOutlet var console: UITextView!
+    
+    @IBAction func clickUpdate(_ sender: Any) {
+        updateBut.isEnabled = false
+        indicator.startAnimating()
+        let result = loader.start()
+        // multi-threading implementation required later
+        if !result{
+            console.text = console.text + "\nUpdating...not implemented yet!"
+        }
+        // multi-threading implementation required later
+        
+
+    }
+    
+
+    @IBOutlet var indicator: NVActivityIndicatorView!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        console.text = loader.report()
+        indicator.type = .lineScale 
+        indicator.color = UIColor(red: 250.0/255.0, green: 128.0/255.0, blue: 114.0/255.0, alpha: 1.0)
         
     
     
     
-    
-    
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
+    
 
 }
 

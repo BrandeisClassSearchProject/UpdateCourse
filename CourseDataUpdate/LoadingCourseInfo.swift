@@ -11,11 +11,21 @@ import Foundation
 
 class LoadingCourseInfo {
     
+    let firedb: FirebaseUpdateService
     
     init(){
-        
+        firedb = FirebaseUpdateService()
     }
     
+    //start working
+    func start() -> Bool{
+        
+        return false
+    }
+    
+    func report() -> String{
+        return firedb.report()
+    }
     
     
     

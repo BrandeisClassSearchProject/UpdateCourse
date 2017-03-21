@@ -21,6 +21,12 @@ class FirebaseUpdateService{
     }
     
 
+    func report() -> String {
+        //return a general report of current status of the firebase
+        //including but not limited with: last update time, number of items, number of terms .....
+        
+        return "Firebase not initialized yet."
+    }
     
     
     

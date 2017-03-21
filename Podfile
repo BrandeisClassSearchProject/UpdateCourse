@@ -6,6 +6,7 @@ target 'CourseDataUpdate' do
   use_frameworks!
   pod 'Firebase/Core'
   pod 'Firebase/Database'
+  pod 'NVActivityIndicatorView'
 
 
 
