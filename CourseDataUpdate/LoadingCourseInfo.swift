@@ -19,7 +19,7 @@ class LoadingCourseInfo {
     
     let mainVC : ViewController //ref of the ui
     
-    var lock = [true,true,true]
+    var lock = [true,true,true] //only allows at most three connection processes running concurrently. Can increase the size for a faster speed, but possibility of getting error also increases
     
     init(vc: ViewController){
         mainVC = vc

@@ -38,6 +38,7 @@ class ViewController: UIViewController {
     
     public func println(newLine:String){
         DispatchQueue.main.async {
+            print(newLine)
             self.console.print(newLine: newLine)
             let bottomOffset = CGPoint(x: 0, y: self.console.contentSize.height - self.console.bounds.size.height)
             self.console.setContentOffset(bottomOffset, animated: true)
