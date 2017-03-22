@@ -38,6 +38,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        updateBut.layer.cornerRadius = 5
         console.text = loader.report()
         indicator.type = .lineScale 
         indicator.color = UIColor(red: 250.0/255.0, green: 128.0/255.0, blue: 114.0/255.0, alpha: 1.0)

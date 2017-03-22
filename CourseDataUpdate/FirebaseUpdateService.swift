@@ -10,13 +10,26 @@ import Firebase
 
 
 class FirebaseUpdateService{
+    
+    let dbRef: FIRDatabaseReference
+    
     init(){
-        
-        
+        FIRApp.configure()
+         dbRef = FIRDatabase.database().reference(fromURL: "https://classsearch-179fb.firebaseio.com/")
+
+                
     }
+
     
     //this function will be called to put a new course on firebase
-    func postCourse(term:String,courseID:String, name:String,description: String, block:String, time:String,bookUrl:String ,teacherUrl:String)->Bool{
+    func postCourse(term:String,courseID:String, name:String,descriptionURL: String, block:String, time:String,bookUrl:String ,teacherUrl:String,syllabusURL:String)->Bool{
+        
+        dbRef.child(term).child(courseID).updateChildValues(["NAME":name,"DESCRIPTION":descriptionURL,"BLOCK":block,"TIMES":time,"TEACHER":teacherUrl,"BOOKS":bookUrl,"SYLLABUS":syllabusURL])
+        
+        
+        
+        
+        
         return false
     }
     

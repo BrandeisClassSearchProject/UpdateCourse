@@ -7,6 +7,8 @@ target 'CourseDataUpdate' do
   pod 'Firebase/Core'
   pod 'Firebase/Database'
   pod 'NVActivityIndicatorView'
+  pod 'Alamofire', '~> 4.0'
+  pod 'Kanna', '~> 2.1.0'
 
 
 

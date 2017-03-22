@@ -7,9 +7,9 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>1072797159607-12pjf6m7oa6s5tujfcg9jpo0np0a72ks.apps.googleusercontent.com</string>
+	<string>1072797159607-bled5od85jkjkqifaiup1t3upvvqsute.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1072797159607-12pjf6m7oa6s5tujfcg9jpo0np0a72ks</string>
+	<string>com.googleusercontent.apps.1072797159607-bled5od85jkjkqifaiup1t3upvvqsute</string>
 	<key>API_KEY</key>
 	<string>AIzaSyAv5T4C_dGAwgusbYfJzGg71dTfw2K809U</string>
 	<key>GCM_SENDER_ID</key>
@@ -17,7 +17,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.rozoalex.BrandeisClassSearchIPHONE.ClassScheduleWidget</string>
+	<string>com.rozoalex.CourseDataUpdate</string>
 	<key>PROJECT_ID</key>
 	<string>classsearch-179fb</string>
 	<key>STORAGE_BUCKET</key>
@@ -33,7 +33,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1072797159607:ios:9746151ed0d242a2</string>
+	<string>1:1072797159607:ios:aeec9d6015f8daf6</string>
 	<key>DATABASE_URL</key>
 	<string>https://classsearch-179fb.firebaseio.com</string>
 </dict>
