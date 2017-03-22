@@ -33,6 +33,15 @@ class FirebaseUpdateService{
         return false
     }
     
+    //grab a lock of database, prevent updating the same time
+    //return the result 
+    //if true, continue, if false stop the process
+    func lock() -> Bool{
+        
+        //not implemented for now, just return true
+        return true
+    }
+    
 
     func report() -> String {
         //return a general report of current status of the firebase

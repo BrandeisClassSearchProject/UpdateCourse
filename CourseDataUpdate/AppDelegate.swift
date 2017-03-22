@@ -93,3 +93,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+extension UITextView{
+    func print(newLine: String){
+        if let t = self.text{
+            self.text = t + "\n\(newLine)"
+        }else{
+            self.text = "\(newLine)"
+        }
+    }
+    
+    
+    
+}
+

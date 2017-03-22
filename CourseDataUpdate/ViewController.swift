@@ -14,7 +14,8 @@ import Firebase
 
 class ViewController: UIViewController {
     
-    let loader : LoadingCourseInfo = LoadingCourseInfo()
+    var loader : LoadingCourseInfo?
+    
     
     @IBOutlet var updateBut: UIButton!
     @IBOutlet var console: UITextView!
@@ -22,14 +23,25 @@ class ViewController: UIViewController {
     @IBAction func clickUpdate(_ sender: Any) {
         updateBut.isEnabled = false
         indicator.startAnimating()
-        let result = loader.start()
-        // multi-threading implementation required later
-        if !result{
-            console.text = console.text + "\nUpdating...not implemented yet!"
-        }
-        // multi-threading implementation required later
+        loader!.start()
+
         
 
+    }
+    
+    public func stopAnimation(){
+        
+        DispatchQueue.main.async {
+            self.indicator.stopAnimating()
+        }
+    }
+    
+    public func println(newLine:String){
+        DispatchQueue.main.async {
+            self.console.print(newLine: newLine)
+            let bottomOffset = CGPoint(x: 0, y: self.console.contentSize.height - self.console.bounds.size.height)
+            self.console.setContentOffset(bottomOffset, animated: true)
+        }
     }
     
 
@@ -37,9 +49,11 @@ class ViewController: UIViewController {
     
 
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        loader = LoadingCourseInfo(vc: self)
         updateBut.layer.cornerRadius = 5
-        console.text = loader.report()
+        console.text = loader!.report()
         indicator.type = .lineScale 
         indicator.color = UIColor(red: 250.0/255.0, green: 128.0/255.0, blue: 114.0/255.0, alpha: 1.0)
         
