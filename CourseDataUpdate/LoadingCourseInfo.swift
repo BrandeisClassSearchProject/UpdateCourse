@@ -11,6 +11,20 @@ import Alamofire
 import Kanna
 
 
+struct course {
+    let id: String
+    let name: String
+    let time: String
+    let block: String
+    let descUrl: String
+    let teacherUrl: String
+    let bookUrl: String
+    let syllUrl: String
+    let requirements: String
+    let location: String
+    let open: String
+}
+
 class LoadingCourseInfo {
     
     var isDone = false //indicates if the update process is done or not
@@ -112,7 +126,7 @@ class LoadingCourseInfo {
             response in
             print("is Successful?? \(response.result.isSuccess)")
             if let html = response.result.value {
-                self.mainVC.println(newLine: "requested \(urlString) successfully, start parsing")
+                self.mainVC.println(newLine: "requested term \(term) at page \(index) successful, start parsing")
                 self.parsing(htmlString: html, term: term)
                 self.lock[index%3] = true //release the resource
             }else{
@@ -127,7 +141,18 @@ class LoadingCourseInfo {
     
     private func parsing(htmlString:String, term:String){
         self.mainVC.println(newLine: "working on term \(term)")
-        self.mainVC.println(newLine: "doing nothing for now")
+        if let doc = Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8) {
+            let a = doc.xpath("//table//tr")
+            print("Start parsing \(a.count-1) classes data on this page")
+            for i in 1...a.count {
+                let b = doc.xpath("//table//tr[\(i)]//td")
+                for s in b{
+                    print("----\n\(s.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))\n----")
+                }
+            }
+        }else{
+            self.mainVC.println(newLine: "parsing failed, term:\(term)")
+        }
     }
     
     
