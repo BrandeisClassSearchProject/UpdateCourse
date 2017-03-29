@@ -12,17 +12,18 @@ import Kanna
 
 
 struct course {
-    let id: String
-    let name: String
-    let time: String
-    let block: String
-    let descUrl: String
-    let teacherUrl: String
-    let bookUrl: String
-    let syllUrl: String
-    let requirements: String
-    let location: String
-    let open: String
+    var id: String
+    var name: String
+    var time: String
+    var block: String
+    var descUrl: String
+    var teacherUrl: String
+    var bookUrl: String
+    var syllUrl: String
+    var requirements: String
+    var location: String
+    var open: String
+    var section: String
 }
 
 class LoadingCourseInfo {
@@ -144,11 +145,10 @@ class LoadingCourseInfo {
         if let doc = Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8) {
             let a = doc.xpath("//table//tr")
             print("Start parsing \(a.count-1) classes data on this page")
-            for i in 1...a.count {
-                let b = doc.xpath("//table//tr[\(i)]//td")
-                for s in b{
-                    print("----\n\(s.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))\n----")
-                }
+            for i in 1...a.count-1 {
+                //PROBLEMS!
+                //PROBLEMS
+                firedb.postCourse(course: makeCourse(node: a[i]), term: term)
             }
         }else{
             self.mainVC.println(newLine: "parsing failed, term:\(term)")
@@ -157,6 +157,157 @@ class LoadingCourseInfo {
     
     
     
+    private func makeCourse(node: XMLElement)->course{
+        let xPathNode = node.css("td")
+        print(xPathNode.count)
+        if xPathNode.count != 6{
+            print("tds.count: \(xPathNode.count)")
+            self.mainVC.println(newLine: "\nfailed to parse given xPathNode\n" )
+            return course(id: "", name: "", time: "", block: "", descUrl: "", teacherUrl: "", bookUrl: "", syllUrl: "", requirements: "", location: "", open: "",section: "")
+        }
+    
+        var courseHolder = course(id: "", name: "", time: "", block: "", descUrl: "", teacherUrl: "", bookUrl: "", syllUrl: "", requirements: "", location: "", open: "",section: "")
+        
+        
+        
+        //ID
+        if let id = xPathNode[1].xpath("//a/@name")[0].text{
+            courseHolder.id = id
+            print(id)
+        }else{
+            print("id nil")
+        }
+        //ID
+        
+        //Section
+        if let full_id = xPathNode[1].xpath("//a[@name='\(courseHolder.id)']")[0].text{
+            print(full_id)
+            let temp = full_id.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).components(separatedBy: " ")
+            if temp[temp.count-1] == "1"{
+                courseHolder.section = "1"
+            }else{
+                courseHolder.id = courseHolder.id + " " + temp[temp.count-1]
+                courseHolder.section = temp[temp.count-1]
+            }
+            
+            
+            print("section: "+courseHolder.section)
+        }else{
+            print("section nil")
+        }
+        //Section
+        
+        
+        //Description
+        if let popLink = xPathNode[1].xpath("//a[@class='def']/@href")[0].text{
+            print(popLink)
+            let pop = popLink.components(separatedBy: "'")
+            if pop.count>0{
+                courseHolder.descUrl = "http://registrar-prod.unet.brandeis.edu/registrar/schedule/"+pop[1]
+                print(courseHolder.descUrl)
+            }else{
+                print("descUrl nil, pop has zero elements")
+
+            }
+            
+        }else{
+            print("descUrl nil")
+        }
+        //Description
+        
+        
+        //Name
+        if let name = xPathNode[2].xpath("//strong")[0].text{
+            courseHolder.name = name
+            print(name)
+        }else{
+            print("name nil")
+        }
+        //Name
+        
+        
+        //Requirement
+        if let reqHtml = xPathNode[2].toHTML{
+            if let doc = Kanna.HTML(html: reqHtml, encoding: String.Encoding.utf8) {
+                let reqs = doc.xpath("//span[@class='requirement']")
+                for r in reqs{
+                    courseHolder.requirements = courseHolder.requirements+r.text!.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)+" "
+                }
+                print("----"+courseHolder.requirements)
+            }
+        }
+        //Requirement
+        
+        
+        //Time //NOT DONE
+        if let timeAndLoc  = xPathNode[3].text{
+            courseHolder.open = timeAndLoc
+            let details = cutWhiteSpace(text: timeAndLoc)
+            for d in details{
+                print("** \(d)")
+            }
+            print(details.count)
+        }else{
+            print("open nil")
+        }
+        //Time //NOT DONE
+        
+        
+        //OPEN //NOT DONE
+        
+        //OPEN //NOT DONE
+        
+        
+        //Teacher
+        if let teacherHTML = xPathNode[5].toHTML{
+            if let doc = Kanna.HTML(html: teacherHTML, encoding: String.Encoding.utf8) {
+                let teacherURLs = doc.xpath("//@href")
+                print("teacherURLs.count=\(teacherURLs.count)")
+                if teacherURLs.count == 1{
+                    courseHolder.teacherUrl = teacherURLs[0].text!
+                }else{
+                    for s in teacherURLs{
+                        courseHolder.teacherUrl = s.text!+"\n"+courseHolder.teacherUrl
+                    }
+                }
+            }
+        }else{
+            print("teacher nil")
+        }
+        //Teacher
+        
+        
+        //Syllabus
+        if let s = xPathNode[1].toHTML{
+            if let syllab = Kanna.HTML(html: s, encoding: String.Encoding.utf8) {
+                if syllab.xpath("//@href").count > 1{
+                    if let sylla = syllab.xpath("//@href")[1].text{
+                        courseHolder.syllUrl = sylla
+                        print("this class has syllabus: \(sylla)")
+                    }
+                }else{
+                    print("syllabus nil")
+                }
+            }
+        }
+        
+        
+        
+        //Syllabus
+        //http://registrar-prod.unet.brandeis.edu/registrar/schedule/course?acad_year=2017&crse_id=000050
+        return courseHolder
+    }
+    
+    private func cutWhiteSpace(text: String)->[String]{
+        let a = text.components(separatedBy: "\r\n")
+        var temp:[String] = []
+        for s in a {
+            if s.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) != "" {
+                temp.append(s.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))
+            }
+        }
+        return temp
+    }
     
     func report() -> String{
         return firedb.report()
