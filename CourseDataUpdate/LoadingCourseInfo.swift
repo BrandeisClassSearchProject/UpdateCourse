@@ -14,7 +14,7 @@ import Kanna
 struct course {
     var id: String
     var name: String
-    var time: String
+    var time: [String]
     var block: String
     var descUrl: String
     var teacherUrl: String
@@ -163,68 +163,76 @@ class LoadingCourseInfo {
         if xPathNode.count != 6{
             print("tds.count: \(xPathNode.count)")
             self.mainVC.println(newLine: "\nfailed to parse given xPathNode\n" )
-            return course(id: "", name: "", time: "", block: "", descUrl: "", teacherUrl: "", bookUrl: "", syllUrl: "", requirements: "", location: "", open: "",section: "")
+            return course(id: "", name: "", time: [], block: "", descUrl: "", teacherUrl: "", bookUrl: "", syllUrl: "", requirements: "", location: "", open: "",section: "")
         }
     
-        var courseHolder = course(id: "", name: "", time: "", block: "", descUrl: "", teacherUrl: "", bookUrl: "", syllUrl: "", requirements: "", location: "", open: "",section: "")
+        var courseHolder = course(id: "", name: "", time: [], block: "", descUrl: "", teacherUrl: "", bookUrl: "", syllUrl: "", requirements: "", location: "", open: "",section: "")
         
         
         
-        //ID
-        if let id = xPathNode[1].xpath("//a/@name")[0].text{
-            courseHolder.id = id
-            print(id)
-        }else{
-            print("id nil")
-        }
-        //ID
-        
-        //Section
-        if let full_id = xPathNode[1].xpath("//a[@name='\(courseHolder.id)']")[0].text{
-            print(full_id)
-            let temp = full_id.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).components(separatedBy: " ")
-            if temp[temp.count-1] == "1"{
-                courseHolder.section = "1"
+        //ID, Section, Description
+        if let idDoc = Kanna.HTML(html: xPathNode[1].toHTML!, encoding: String.Encoding.utf8) {
+            //print(idDoc.toHTML!)
+            if let idWithSection = idDoc.xpath("//a[@class='def']")[0].text{
+                let temp = idWithSection.components(separatedBy: " ")
+                var id = ""
+                var section = ""
+                var counter = 0
+                for s in temp{
+                    if s.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) != ""{
+                        if counter < 2{
+                            id = id + s.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) + " "
+                        }else if counter == 2{
+                            section = s.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                            
+                        }
+                        counter += 1
+                    }
+                }
+                courseHolder.id = id.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                if section == "1"{
+                    courseHolder.section = "1"
+                }else{
+                    courseHolder.id = courseHolder.id + " " + section
+                    courseHolder.section = section
+                }
+                print(courseHolder.id)
+                print(courseHolder.section)
             }else{
-                courseHolder.id = courseHolder.id + " " + temp[temp.count-1]
-                courseHolder.section = temp[temp.count-1]
+                print("id nil")
+            }
+            if let popLink = idDoc.xpath("//a[@class='def']/@href")[0].text{
+                print(popLink)
+                let pop = popLink.components(separatedBy: "'")
+                if pop.count>0{
+                    courseHolder.descUrl = "http://registrar-prod.unet.brandeis.edu/registrar/schedule/"+pop[1]
+                    print(courseHolder.descUrl)
+                }else{
+                    print("descUrl nil, pop has zero elements")
+                    
+                }
+                
+            }else{
+                print("descUrl nil")
             }
             
-            
-            print("section: "+courseHolder.section)
-        }else{
-            print("section nil")
+        
         }
-        //Section
+        
+        //ID, Section, Description
         
         
-        //Description
-        if let popLink = xPathNode[1].xpath("//a[@class='def']/@href")[0].text{
-            print(popLink)
-            let pop = popLink.components(separatedBy: "'")
-            if pop.count>0{
-                courseHolder.descUrl = "http://registrar-prod.unet.brandeis.edu/registrar/schedule/"+pop[1]
-                print(courseHolder.descUrl)
+        //Name
+        if let nameDoc = Kanna.HTML(html: xPathNode[2].toHTML!, encoding: String.Encoding.utf8) {
+            if let name = nameDoc.xpath("//strong")[0].text{
+                courseHolder.name = name
+                print(name)
             }else{
-                print("descUrl nil, pop has zero elements")
+                print("name nil")
+            }
+        }
+        //Name
 
-            }
-            
-        }else{
-            print("descUrl nil")
-        }
-        //Description
-        
-        
-        //Name
-        if let name = xPathNode[2].xpath("//strong")[0].text{
-            courseHolder.name = name
-            print(name)
-        }else{
-            print("name nil")
-        }
-        //Name
-        
         
         //Requirement
         if let reqHtml = xPathNode[2].toHTML{
@@ -240,13 +248,90 @@ class LoadingCourseInfo {
         
         
         //Time //NOT DONE
+        var tempBlock = ""
         if let timeAndLoc  = xPathNode[3].text{
-            courseHolder.open = timeAndLoc
+            //courseHolder.open = timeAndLoc
+            print("timeAndLoc has 3")
             let details = cutWhiteSpace(text: timeAndLoc)
-            for d in details{
-                print("** \(d)")
+            if details.count == 3{
+                let tempT = details[1].components(separatedBy: "–")
+                if tempT.count != 2{
+                    print(details[1]+" WTF!? \(tempT.count)")
+                }else{
+                    courseHolder.time.append("LECTURE\n\(details[0]+"  "+tempT[0]+" – "+tempT[1])")
+                    courseHolder.location = details[2]
+                }
+                print(courseHolder.time)
+                
+            }else if details.count == 4{
+                print("timeAndLoc has 4")
+                if details[0].hasPrefix("Block"){
+                    tempBlock = details[0]
+                    let tempT = details[2].components(separatedBy: "–")
+                    if tempT.count != 2{
+                        print(details[2]+" WTF!?\(tempT.count)")
+                    }else{
+                        courseHolder.time.append("LECTURE\n\(details[1]+"  "+tempT[0]+" – "+tempT[1])")
+                        courseHolder.location = details[3]
+                    }
+                }
+            }else if details.count > 4{
+                print("timeAndLoc has more than 4")
+                var tempTime = ""
+                if !details[0].hasSuffix(":"){
+                    tempTime = "LECTURE\n"
+                }
+                for de in details{
+                    let d = de.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                    if d.hasPrefix("Block"){
+                        if tempBlock == ""{
+                            tempBlock = d
+                        }else{
+                            tempBlock.append("\n\(d)")
+                        }
+                    }else if d.hasSuffix(":"){
+                        if tempTime != "" || tempTime != "LECTURE\n"{
+                            courseHolder.time.append(tempTime)
+                        }
+                        tempTime = ""
+                        tempTime.append(cutTail(input: d).uppercased()+"\n")
+                    }else if isDay(str: d){
+                        tempTime.append(d + "  ")
+                    }else if isTime(str: d){
+                        print("find a time string ")
+                        let tT = d.components(separatedBy: "–")
+                        if tT.count != 2 {
+                            print("\(d) WTF?! ")
+                            if courseHolder.location == ""{
+                                courseHolder.location = d
+                            }else{
+                                courseHolder.location.append("\n\(d)")
+                            }
+                        }else{
+                            tempTime.append(tT[0]+" – "+tT[1])
+                        }
+                    }else{
+                        if courseHolder.location == ""{
+                            courseHolder.location = d
+                        }else{
+                            courseHolder.location.append("\n\(d)")
+                        }
+                    }
+                    
+                    print("** \(d)")
+                }
+                if tempTime != ""{
+                    courseHolder.time.append(tempTime)
+                }
             }
-            print(details.count)
+            
+            courseHolder.block = tempBlock
+            for ttt in courseHolder.time{
+                print("time## \(ttt)")
+            }
+            print("====")
+            print("Block: "+courseHolder.block)
+            print("LOCATION\(courseHolder.location)")
         }else{
             print("open nil")
         }
@@ -298,6 +383,15 @@ class LoadingCourseInfo {
         return courseHolder
     }
     
+    private func isDay(str: String)-> Bool{
+        return str.characters.count == 1 || str.contains(",")
+    }
+    
+    private func isTime(str: String)-> Bool{
+        return (str.contains("AM") && str.contains("–"))||(str.contains("PM") && str.contains("–"))
+    }
+    
+    
     private func cutWhiteSpace(text: String)->[String]{
         let a = text.components(separatedBy: "\r\n")
         var temp:[String] = []
@@ -313,7 +407,9 @@ class LoadingCourseInfo {
         return firedb.report()
     }
     
-    
+    private func cutTail(input:String) -> String {
+        return input.substring(to: input.index(input.startIndex, offsetBy: (input.characters.count-1)))
+    }
     
 
   
