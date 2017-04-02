@@ -34,7 +34,11 @@ class LoadingCourseInfo {
     
     let mainVC : ViewController //ref of the ui
     
-    var lock = [true,true,true] //only allows at most three connection processes running concurrently. Can increase the size for a faster speed, but possibility of getting error also increases
+    var lock = [true] //only allows at most three connection processes running concurrently. Can increase the size for a faster speed, but possibility of getting error also increases
+    
+    var numberOfTerms = 0
+    
+    var currentDone = 0
     
     init(vc: ViewController){
         mainVC = vc
@@ -81,25 +85,29 @@ class LoadingCourseInfo {
             a.append(1000+(y!-i)*10+3)
         }
         print(a)
+        numberOfTerms = a.count * 20
         return a
     }
     
     //this func should be fed with something like [1171,1172,1173,1161,1162,1163.....]
     private func doUpdate(terms:[Int]){
+        
         for term in terms{
-            self.mainVC.println(newLine:"Try to update \(convertTermToString(term: term))")
+            self.mainVC.println(newLine:"Updating \(convertTermToString(term: term))")
             for i in 1...20{
-                if(lock[i%3]){
-                    lock[i%3] = false
+                if(lock[i%lock.count]){
+                    lock[i%lock.count] = false
                 }else{
-                    while !lock[i%3]{}
+                    while !lock[i%lock.count]{}
+                    self.mainVC.println(newLine: "\(currentDone) out of \(numberOfTerms), \(Double(currentDone/numberOfTerms))% Finished" )
                 }
                 doFetch(urlString: "http://registrar-prod.unet.brandeis.edu/registrar/schedule/search?strm=\(String(term))&view=all&status=&time=time&day=mon&day=tues&day=wed&day=thurs&day=fri&start_time=07%3A00%3A00&end_time=22%3A30%3A00&block=&keywords=&order=class&search=Search&subsequent=1&page=\(String(i))", term: String(term),index:i)
                 
             }
+            self.mainVC.println(newLine: "\(Double(currentDone/numberOfTerms))% Finished" )
         }
         isDone = true
-        self.mainVC.println(newLine:"Update completed!")
+        //self.mainVC.println(newLine:"Update completed!")
         self.mainVC.stopAnimation()
     }
     
@@ -129,10 +137,11 @@ class LoadingCourseInfo {
             if let html = response.result.value {
                 self.mainVC.println(newLine: "requested term \(term) at page \(index) successful, start parsing")
                 self.parsing(htmlString: html, term: term)
-                self.lock[index%3] = true //release the resource
+                self.lock[index%(self.lock.count)] = true //release the resource
+                
             }else{
                 self.mainVC.println(newLine:"url not working, url: \(urlString)")
-                self.lock[index%3] = true //release the resource
+                self.lock[index%(self.lock.count)] = true //release the resource
             }
         })
         
@@ -145,11 +154,14 @@ class LoadingCourseInfo {
         if let doc = Kanna.HTML(html: htmlString, encoding: String.Encoding.utf8) {
             let a = doc.xpath("//table//tr")
             print("Start parsing \(a.count-1) classes data on this page")
-            for i in 1...a.count-1 {
-                //PROBLEMS!
-                //PROBLEMS
-                firedb.postCourse(course: makeCourse(node: a[i]), term: term)
+            if a.count-1 > 1{
+                for i in 1...a.count-1 {
+                    firedb.postCourse(course: makeCourse(node: a[i]), term: term)
+                    
+                }
             }
+            
+            currentDone += 1
         }else{
             self.mainVC.println(newLine: "parsing failed, term:\(term)")
         }
@@ -162,7 +174,7 @@ class LoadingCourseInfo {
         print(xPathNode.count)
         if xPathNode.count != 6{
             print("tds.count: \(xPathNode.count)")
-            self.mainVC.println(newLine: "\nfailed to parse given xPathNode\n" )
+            //self.mainVC.println(newLine: "\nfailed to parse given xPathNode\n" )
             return course(id: "", name: "", time: [], block: "", descUrl: "", teacherUrl: "", bookUrl: "", syllUrl: "", requirements: "", location: "", open: "",section: "")
         }
     
@@ -298,7 +310,7 @@ class LoadingCourseInfo {
                     }else if isDay(str: d){
                         tempTime.append(d + "  ")
                     }else if isTime(str: d){
-                        print("find a time string ")
+                        //print("find a time string ")
                         let tT = d.components(separatedBy: "–")
                         if tT.count != 2 {
                             print("\(d) WTF?! ")
@@ -380,6 +392,7 @@ class LoadingCourseInfo {
         
         //Syllabus
         //http://registrar-prod.unet.brandeis.edu/registrar/schedule/course?acad_year=2017&crse_id=000050
+        
         return courseHolder
     }
     

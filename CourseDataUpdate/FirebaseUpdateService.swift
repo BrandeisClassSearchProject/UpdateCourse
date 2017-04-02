@@ -27,19 +27,21 @@ class FirebaseUpdateService{
             print("skip")
             return
         }
-        print("\n\nTerm: \(term)\nID: \(course.id)\nName: \(course.name)\nDesc: \(course.descUrl)\nREQ: \(course.requirements)\nTeacher: \(course.teacherUrl)\nSyllabus: \(course.syllUrl)\n")
+        
+        self.postCourse(term: term, courseID: course.id, name: course.name, descriptionURL: course.descUrl, block: course.block, time: course.time, bookUrl: course.bookUrl, teacherUrl: course.teacherUrl, syllabusURL: course.syllUrl, open: course.open, req: course.requirements, loc: course.location, sec: course.section)
+        print("\n\nUPDATE COURSE=>\nTerm: \(term)\nID: \(course.id)\nName: \(course.name)\nDesc: \(course.descUrl)\nREQ: \(course.requirements)\nTeacher: \(course.teacherUrl)\nSyllabus: \(course.syllUrl)\n")
         for t in course.time{
             print("Time: \(t)\n")
         }
-        self.postCourse(term: term, courseID: course.id, name: course.name, descriptionURL: course.descUrl, block: course.block, time: course.time, bookUrl: course.bookUrl, teacherUrl: course.teacherUrl, syllabusURL: course.syllUrl, open: course.open, req: course.requirements)
     }
     
     //this function will be called to put a new course on firebase
-    func postCourse(term:String,courseID:String, name:String,descriptionURL: String, block:String, time:[String],bookUrl:String ,teacherUrl:String,syllabusURL:String,open:String,req:String){
+    func postCourse(term:String,courseID:String, name:String,descriptionURL: String, block:String, time:[String],bookUrl:String ,teacherUrl:String,syllabusURL:String,open:String,req:String,loc:String, sec:String){
         if term == "" || courseID == "" {
             return
         }
-    dbRef.child(term).child(courseID).updateChildValues(["NAME":name,"DESCRIPTION":descriptionURL,"BLOCK":block,"TIME":"","TEACHER":teacherUrl,"SYLLABUS":syllabusURL,"REQ":req,"OPEN":open])
+        dbRef.child(term).child(courseID).updateChildValues(["NAME":name,"DESCRIPTION":descriptionURL,"BLOCK":block,"TIME":"","TEACHER":teacherUrl,"SYLLABUS":syllabusURL,"REQ":req,"OPEN":open,"LOCATION":loc,"SECTION":sec])
+        
         var i = 1
         for t in time{
             if t != ""{
