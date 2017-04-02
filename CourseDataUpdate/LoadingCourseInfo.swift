@@ -4,7 +4,7 @@
 //
 //  Created by Yuanze Hu on 3/20/17.
 //  Copyright © 2017 Yuanze Hu. All rights reserved.
-//  example link: http://registrar-prod.unet.brandeis.edu/registrar/schedule/search?strm=1171&view=all&status=&time=time&day=mon&day=tues&day=wed&day=thurs&day=fri&start_time=07%3A00%3A00&end_time=22%3A30%3A00&block=&keywords=&order=class&search=Search&subsequent=1&page=1
+//  example link: http://registrar-prod.unet.brandeis.edu/registrar/schedule/search?strm=1173&view=all&status=&time=time&day=mon&day=tues&day=wed&day=thurs&day=fri&start_time=07%3A00%3A00&end_time=22%3A30%3A00&block=&keywords=&order=class&search=Search&subsequent=1&page=1
 
 import Foundation
 import Alamofire
@@ -24,9 +24,14 @@ struct course {
     var location: String
     var open: String
     var section: String
+    var code: String
 }
 
+
+
 class LoadingCourseInfo {
+    
+    let days: Set<String> = ["M","T","W","Th","F"]
     
     var isDone = false //indicates if the update process is done or not
     
@@ -99,12 +104,11 @@ class LoadingCourseInfo {
                     lock[i%lock.count] = false
                 }else{
                     while !lock[i%lock.count]{}
-                    self.mainVC.println(newLine: "\(currentDone) out of \(numberOfTerms), \(Double(currentDone/numberOfTerms))% Finished" )
                 }
                 doFetch(urlString: "http://registrar-prod.unet.brandeis.edu/registrar/schedule/search?strm=\(String(term))&view=all&status=&time=time&day=mon&day=tues&day=wed&day=thurs&day=fri&start_time=07%3A00%3A00&end_time=22%3A30%3A00&block=&keywords=&order=class&search=Search&subsequent=1&page=\(String(i))", term: String(term),index:i)
                 
             }
-            self.mainVC.println(newLine: "\(Double(currentDone/numberOfTerms))% Finished" )
+            self.mainVC.println(newLine: "\(currentDone) out of \(numberOfTerms), \((Double(currentDone)/Double(numberOfTerms)).roundTo(places: 4) * 100))% Finished" )
         }
         isDone = true
         //self.mainVC.println(newLine:"Update completed!")
@@ -160,8 +164,8 @@ class LoadingCourseInfo {
                     
                 }
             }
-            
             currentDone += 1
+            self.mainVC.println(newLine: "\(currentDone) out of \(numberOfTerms), \((Double(currentDone)/Double(numberOfTerms)).roundTo(places: 4) * 100))% Finished" )
         }else{
             self.mainVC.println(newLine: "parsing failed, term:\(term)")
         }
@@ -175,11 +179,26 @@ class LoadingCourseInfo {
         if xPathNode.count != 6{
             print("tds.count: \(xPathNode.count)")
             //self.mainVC.println(newLine: "\nfailed to parse given xPathNode\n" )
-            return course(id: "", name: "", time: [], block: "", descUrl: "", teacherUrl: "", bookUrl: "", syllUrl: "", requirements: "", location: "", open: "",section: "")
+            return course(id: "", name: "", time: [], block: "", descUrl: "", teacherUrl: "", bookUrl: "", syllUrl: "", requirements: "", location: "", open: "",section: "", code: "")
         }
     
-        var courseHolder = course(id: "", name: "", time: [], block: "", descUrl: "", teacherUrl: "", bookUrl: "", syllUrl: "", requirements: "", location: "", open: "",section: "")
+        var courseHolder = course(id: "", name: "", time: [], block: "", descUrl: "", teacherUrl: "", bookUrl: "", syllUrl: "", requirements: "", location: "", open: "",section: "", code: "")
         
+        //CODE
+        if let codeDoc = Kanna.HTML(html: xPathNode[0].toHTML!, encoding: String.Encoding.utf8) {
+            if let code = codeDoc.text {
+                let tempCode = cutWhiteSpace(text: code)
+                if tempCode.count == 1{
+                    courseHolder.code = tempCode[0]
+                    print(courseHolder.code)
+                }else{
+                    print(tempCode)
+                }
+                
+                
+            }
+        }
+        //CODE
         
         
         //ID, Section, Description
@@ -199,6 +218,7 @@ class LoadingCourseInfo {
                             
                         }
                         counter += 1
+                        
                     }
                 }
                 courseHolder.id = id.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
@@ -218,7 +238,7 @@ class LoadingCourseInfo {
                 let pop = popLink.components(separatedBy: "'")
                 if pop.count>0{
                     courseHolder.descUrl = "http://registrar-prod.unet.brandeis.edu/registrar/schedule/"+pop[1]
-                    print(courseHolder.descUrl)
+                    //print(courseHolder.descUrl)
                 }else{
                     print("descUrl nil, pop has zero elements")
                     
@@ -263,9 +283,11 @@ class LoadingCourseInfo {
         var tempBlock = ""
         if let timeAndLoc  = xPathNode[3].text{
             //courseHolder.open = timeAndLoc
-            print("timeAndLoc has 3")
+            
             let details = cutWhiteSpace(text: timeAndLoc)
-            if details.count == 3{
+            if (details.count == 3 && isDay(str: details[0])){
+                print("timeAndLoc has 3")
+                print(details)
                 let tempT = details[1].components(separatedBy: "–")
                 if tempT.count != 2{
                     print(details[1]+" WTF!? \(tempT.count)")
@@ -302,13 +324,18 @@ class LoadingCourseInfo {
                             tempBlock.append("\n\(d)")
                         }
                     }else if d.hasSuffix(":"){
-                        if tempTime != "" || tempTime != "LECTURE\n"{
+                        if ((tempTime != "") && (tempTime != "LECTURE\n")){
                             courseHolder.time.append(tempTime)
                         }
                         tempTime = ""
                         tempTime.append(cutTail(input: d).uppercased()+"\n")
                     }else if isDay(str: d){
+                        if ((tempTime != "") && (!tempTime.hasSuffix("\n"))){
+                            courseHolder.time.append(tempTime)
+                            tempTime = "LECTURE\n"
+                        }
                         tempTime.append(d + "  ")
+                        
                     }else if isTime(str: d){
                         //print("find a time string ")
                         let tT = d.components(separatedBy: "–")
@@ -335,6 +362,32 @@ class LoadingCourseInfo {
                 if tempTime != ""{
                     courseHolder.time.append(tempTime)
                 }
+            }else{
+                var tempTime = "LECTURE\n"
+                if details[0].trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).hasSuffix(":"){
+                    tempTime = details[0].trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).uppercased()+"\n"
+                    
+                }
+                print(details)
+                print("this has 2 OR 3")
+                for de in details{
+                    let d = de.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                    if d.hasPrefix("Block"){
+                        tempBlock.append(d)
+                    }else if isTime(str: d){
+                        let tT = d.components(separatedBy: "–")
+                        if tT.count == 2 {
+                            tempTime.append(tT[0]+" – "+tT[1])
+                        }
+                    }else if isDay(str: d){
+                        tempTime.append(d+"  ")
+                    }else{
+                        print("cannot identify \(d)")
+                    }
+                }
+                if tempTime != ""{
+                    courseHolder.time.append(tempTime)
+                }
             }
             
             courseHolder.block = tempBlock
@@ -342,8 +395,8 @@ class LoadingCourseInfo {
                 print("time## \(ttt)")
             }
             print("====")
-            print("Block: "+courseHolder.block)
-            print("LOCATION\(courseHolder.location)")
+            print("BLOCK: "+courseHolder.block)
+            print("LOCATION: \(courseHolder.location)")
         }else{
             print("open nil")
         }
@@ -397,7 +450,14 @@ class LoadingCourseInfo {
     }
     
     private func isDay(str: String)-> Bool{
-        return str.characters.count == 1 || str.contains(",")
+        let temp = str.components(separatedBy: ",")
+        for d in temp {
+            if !days.contains(d.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)){
+                return false
+            }
+        }
+        return true
+        
     }
     
     private func isTime(str: String)-> Bool{
@@ -423,11 +483,14 @@ class LoadingCourseInfo {
     private func cutTail(input:String) -> String {
         return input.substring(to: input.index(input.startIndex, offsetBy: (input.characters.count-1)))
     }
-    
 
-  
-    
-    
-    
-    
 }
+
+extension Double {
+    /// Rounds the double to decimal places value
+    func roundTo(places:Int) -> Double {
+        let divisor = pow(10.0, Double(places))
+        return (self * divisor).rounded() / divisor
+    }
+}
+
