@@ -105,6 +105,7 @@ class LoadingCourseInfo {
                 }else{
                     while !lock[i%lock.count]{}
                 }
+                print("working on \("http://registrar-prod.unet.brandeis.edu/registrar/schedule/search?strm=\(String(term))&view=all&status=&time=time&day=mon&day=tues&day=wed&day=thurs&day=fri&start_time=07%3A00%3A00&end_time=22%3A30%3A00&block=&keywords=&order=class&search=Search&subsequent=1&page=\(String(i))")")
                 doFetch(urlString: "http://registrar-prod.unet.brandeis.edu/registrar/schedule/search?strm=\(String(term))&view=all&status=&time=time&day=mon&day=tues&day=wed&day=thurs&day=fri&start_time=07%3A00%3A00&end_time=22%3A30%3A00&block=&keywords=&order=class&search=Search&subsequent=1&page=\(String(i))", term: String(term),index:i)
                 
             }
@@ -362,7 +363,7 @@ class LoadingCourseInfo {
                 if tempTime != ""{
                     courseHolder.time.append(tempTime)
                 }
-            }else{
+            }else if details.count > 0 {
                 var tempTime = "LECTURE\n"
                 if details[0].trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).hasSuffix(":"){
                     tempTime = details[0].trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).uppercased()+"\n"

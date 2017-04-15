@@ -36,16 +36,17 @@ class FirebaseUpdateService{
     }
     
     //this function will be called to put a new course on firebase
-    func postCourse(term:String,courseID:String, name:String,descriptionURL: String, block:String, time:[String],bookUrl:String ,teacherUrl:String,syllabusURL:String,open:String,req:String,loc:String, sec:String, code:String){
+    private func postCourse(term:String,courseID:String, name:String,descriptionURL: String, block:String, time:[String],bookUrl:String ,teacherUrl:String,syllabusURL:String,open:String,req:String,loc:String, sec:String, code:String){
         if term == "" || courseID == "" {
             return
         }
-        dbRef.child(term).child(courseID).updateChildValues(["NAME":name,"DESCRIPTION":descriptionURL,"BLOCK":block,"TIME":"","TEACHER":teacherUrl,"SYLLABUS":syllabusURL,"REQ":req,"OPEN":open,"LOCATION":loc,"SECTION":sec,"CODE":code])
+        
+        dbRef.child(term).child(courseID).updateChildValues(["NAME":name,"DESCRIPTION":descriptionURL,"BLOCK":block,"TIMES":"","TEACHER":teacherUrl,"SYLLABUS":syllabusURL,"REQ":req,"OPEN":open,"LOCATION":loc,"SECTION":sec,"CODE":code])
         
         var i = 1
         for t in time{
             if t != ""{
-                dbRef.child(term).child(courseID).child("TIME").updateChildValues(["\(i)":t])
+                dbRef.child(term).child(courseID).child("TIMES").updateChildValues(["\(i)":t])
                 i += 1
             }
         }
