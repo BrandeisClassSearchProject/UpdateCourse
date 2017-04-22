@@ -166,7 +166,11 @@ class LoadingCourseInfo {
                 }
             }
             currentDone += 1
-            self.mainVC.println(newLine: "\(currentDone) out of \(numberOfTerms), \((Double(currentDone)/Double(numberOfTerms)).roundTo(places: 4) * 100))% Finished" )
+            let percentage = (Double(currentDone)/Double(numberOfTerms)).roundTo(places: 4) * 100
+            self.mainVC.println(newLine: "\(currentDone) out of \(numberOfTerms), \(percentage))% Finished" )
+            if percentage > 99{
+                print(firedb.locationSet)
+            }
         }else{
             self.mainVC.println(newLine: "parsing failed, term:\(term)")
         }

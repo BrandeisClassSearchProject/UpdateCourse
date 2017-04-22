@@ -13,12 +13,15 @@ class FirebaseUpdateService{
     
     let dbRef: FIRDatabaseReference
     
+    var locationSet = Set<String>()
+    
     init(){
         FIRApp.configure()
          dbRef = FIRDatabase.database().reference(fromURL: "https://classsearch-179fb.firebaseio.com/")
 
                 
     }
+    
 
     func postCourse(course: course, term:String){
         //
@@ -27,6 +30,17 @@ class FirebaseUpdateService{
             print("skip")
             return
         }
+        
+        
+        
+        if course.location != "" && course.location != "TBA"{
+            let locs = course.location.components(separatedBy: "\n")
+            for l in locs {
+                locationSet.insert(cutTail(input: l))
+            }
+        }
+        
+        
         
         self.postCourse(term: term, courseID: course.id, name: course.name, descriptionURL: course.descUrl, block: course.block, time: course.time, bookUrl: course.bookUrl, teacherUrl: course.teacherUrl, syllabusURL: course.syllUrl, open: course.open, req: course.requirements, loc: course.location, sec: course.section, code: course.code)
         print("\n\nUPDATE COURSE=>\nCODE: \(course.code)\nTerm: \(term)\nID: \(course.id)\nName: \(course.name)\nDesc: \(course.descUrl)\nREQ: \(course.requirements)\nTeacher: \(course.teacherUrl)\nSyllabus: \(course.syllUrl)\n")
@@ -55,6 +69,22 @@ class FirebaseUpdateService{
         
         
     
+    }
+    
+    
+    private func cutTail(input:String) -> String {
+        for i in 1...5{
+            if input.characters.count > 6-i{
+                let s = input.substring(from: input.index(input.endIndex, offsetBy: -6+i))
+                if let n = Int(s){
+                    print(n)
+                    return input.substring(to: input.index(input.endIndex, offsetBy: -6+i))
+                }
+            }
+            
+        }
+        return input
+        
     }
     
     //grab a lock of database, prevent updating the same time
